@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: content-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://myvm:3306/online-learning_content
+    username: root
+    password: 1234
+
+logging:
+  config: classpath:log4j2-dev.xml

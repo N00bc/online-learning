@@ -9,5 +9,15 @@
     </parent>
     <artifactId>online-learning-content-service</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.cyn</groupId>
+            <artifactId>online-learning-content-model</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+    </dependencies>
 </project>

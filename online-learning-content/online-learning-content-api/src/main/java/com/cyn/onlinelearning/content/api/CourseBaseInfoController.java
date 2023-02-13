@@ -2,10 +2,12 @@ package com.cyn.onlinelearning.content.api;
 
 import com.cyn.onlinelearning.base.model.PageParams;
 import com.cyn.onlinelearning.base.model.PageResult;
+import com.cyn.onlinelearning.content.service.CourseBaseInfoService;
 import com.cyn.onlinelearning.model.dto.QueryCourseParamsDto;
 import com.cyn.onlinelearning.model.po.CourseBase;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,10 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CourseBaseInfoController {
 
+    @Autowired
+    private CourseBaseInfoService courseBaseInfoService;
+
     @ApiOperation("课程查询接口")
     @PostMapping("/course/list")
     public PageResult<CourseBase> list(PageParams params, @RequestBody QueryCourseParamsDto queryCourseParamsDto) {
-        return null;
+        return courseBaseInfoService.queryCourseBaseList(params, queryCourseParamsDto);
     }
 
 }
