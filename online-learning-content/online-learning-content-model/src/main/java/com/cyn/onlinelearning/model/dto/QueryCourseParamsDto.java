@@ -1,4 +1,4 @@
-package com.cyn.onlinelearning.model.dto
+package com.cyn.onlinelearning.model.dto;
 
 import lombok.Data;
 

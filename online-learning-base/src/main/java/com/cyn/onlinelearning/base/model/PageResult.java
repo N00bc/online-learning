@@ -1,4 +1,4 @@
-package com.cyn.onlinelearning.base.model
+package com.cyn.onlinelearning.base.model;
 
 import lombok.Data;
 import lombok.ToString;
