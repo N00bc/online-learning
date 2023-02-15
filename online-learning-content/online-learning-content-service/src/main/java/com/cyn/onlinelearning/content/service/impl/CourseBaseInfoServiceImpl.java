@@ -3,6 +3,7 @@ package com.cyn.onlinelearning.content.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.cyn.onlinelearning.base.exception.OnlineLearningException;
 import com.cyn.onlinelearning.base.model.PageParams;
 import com.cyn.onlinelearning.base.model.PageResult;
 import com.cyn.onlinelearning.content.mapper.CourseBaseMapper;
@@ -69,35 +70,36 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
     @Override
     public CourseBaseInfoDto createCourseBase(Long companyId, AddCourseDto dto) {
         // 参数合法性校验
-        if (StringUtils.isBlank(dto.getName())) {
-            throw new RuntimeException("课程名称为空");
-        }
-
-        if (StringUtils.isBlank(dto.getMt())) {
-            throw new RuntimeException("课程分类为空");
-        }
-
-        if (StringUtils.isBlank(dto.getSt())) {
-            throw new RuntimeException("课程分类为空");
-        }
-
-        if (StringUtils.isBlank(dto.getGrade())) {
-            throw new RuntimeException("课程等级为空");
-        }
-
-        if (StringUtils.isBlank(dto.getTeachmode())) {
-            throw new RuntimeException("教育模式为空");
-        }
-
-        if (StringUtils.isBlank(dto.getUsers())) {
-            throw new RuntimeException("适应人群为空");
-        }
-
-        if (StringUtils.isBlank(dto.getCharge())) {
-            throw new RuntimeException("收费规则为空");
-        } else if ("201001".equals(dto.getCharge()) &&
+//        if (StringUtils.isBlank(dto.getName())) {
+//            OnlineLearningException.cast("课程名称为空");
+//        }
+//
+//        if (StringUtils.isBlank(dto.getMt())) {
+//            OnlineLearningException.cast("课程分类为空");
+//        }
+//
+//        if (StringUtils.isBlank(dto.getSt())) {
+//            OnlineLearningException.cast("课程分类为空");
+//        }
+//
+//        if (StringUtils.isBlank(dto.getGrade())) {
+//            OnlineLearningException.cast("课程等级为空");
+//        }
+//
+//        if (StringUtils.isBlank(dto.getTeachmode())) {
+//            OnlineLearningException.cast("教育模式为空");
+//        }
+//
+//        if (StringUtils.isBlank(dto.getUsers())) {
+//            OnlineLearningException.cast("适应人群为空");
+//        }
+//
+//        if (StringUtils.isBlank(dto.getCharge())) {
+//             OnlineLearningException.cast("收费规则为空");
+//        } else
+        if ("201001".equals(dto.getCharge()) &&
                 (dto.getPrice() == null || dto.getPrice().floatValue() <= 0)) {
-            throw new RuntimeException("收费价格异常");
+            OnlineLearningException.cast("收费价格异常");
         }
         // 向课程基本信息表插入数据
         CourseBase courseBase = new CourseBase();
@@ -119,7 +121,7 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         int insert1 = courseMarketMapper.insert(courseMarket);
         if (insert <= 0 || insert1 <= 0) {
             // 抛出异常才可以被Spring TX接收
-            throw new RuntimeException("插入信息异常");
+            OnlineLearningException.cast("插入信息异常");
         }
         return getCourseBaseInfo(courseBase.getId());
     }
