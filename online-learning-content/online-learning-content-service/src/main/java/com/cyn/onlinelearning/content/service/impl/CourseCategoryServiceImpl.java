@@ -48,6 +48,7 @@ public class CourseCategoryServiceImpl implements CourseCategoryService {
                 childList.add(dto);
             }
         }
-        return childList;
+        // 如果子节点为空需要返回null否则前端选择有问题
+        return childList.isEmpty() ? null : childList;
     }
 }

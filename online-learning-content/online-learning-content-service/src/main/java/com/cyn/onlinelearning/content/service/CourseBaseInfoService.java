@@ -2,6 +2,8 @@ package com.cyn.onlinelearning.content.service;
 
 import com.cyn.onlinelearning.base.model.PageParams;
 import com.cyn.onlinelearning.base.model.PageResult;
+import com.cyn.onlinelearning.model.dto.AddCourseDto;
+import com.cyn.onlinelearning.model.dto.CourseBaseInfoDto;
 import com.cyn.onlinelearning.model.dto.QueryCourseParamsDto;
 import com.cyn.onlinelearning.model.po.CourseBase;
 
@@ -19,4 +21,12 @@ public interface CourseBaseInfoService {
      * @return
      */
     PageResult<CourseBase> queryCourseBaseList(PageParams params, QueryCourseParamsDto queryCourseParamsDto);
+
+    /**
+     *
+     * @param companyId 公司ID TODO 需要在登录功能完成后获取公司ID
+     * @param dto
+     * @return
+     */
+    CourseBaseInfoDto createCourseBase(Long companyId, AddCourseDto dto);
 }
