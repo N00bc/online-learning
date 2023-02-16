@@ -36,7 +36,7 @@
         <result column="one_endTime" property="endTime"/>
         <result column="one_orderby" property="orderby"/>
         <result column="one_courseId" property="courseId"/>
-        <result column="one_coursePubId"  property="coursePubId"/>
+        <result column="one_coursePubId" property="coursePubId"/>
         <!--一对多映射 property表示要将它映射到 type中哪个属性 ofType表示列表中的类型是什么-->
         <collection property="teachPlanTreeNodes" ofType="com.cyn.onlinelearning.model.dto.TeachplanDto">
             <id column="two_id" property="id"/>
@@ -48,7 +48,7 @@
             <result column="two_endTime" property="endTime"/>
             <result column="two_orderby" property="orderby"/>
             <result column="two_courseId" property="courseId"/>
-            <result column="two_coursePubId"  property="coursePubId"/>
+            <result column="two_coursePubId" property="coursePubId"/>
             <!--一对一映射 property是一对一映射的属性名 javaType是数据类型的映射-->
             <association property="teachplanMedia" javaType="com.cyn.onlinelearning.model.po.TeachplanMedia">
                 <id column="teachplanMeidaId" property="id"/>
@@ -57,7 +57,7 @@
             </association>
         </collection>
     </resultMap>
-    <select id="getTreeNodes" resultMap="selectTreeNodesMap" parameterType="long" >
+    <select id="getTreeNodes" resultMap="selectTreeNodesMap" parameterType="long">
         SELECT one.id            one_id,
                one.pname         one_pname,
                one.parentid      one_parentid,
@@ -84,8 +84,15 @@
         FROM teachplan one
                  JOIN teachplan two ON two.parentid = one.id
                  LEFT JOIN teachplan_media m1 ON two.id = m1.teachplan_id
-        WHERE one.parentid = 0 AND one.course_id = #{courseId}
+        WHERE one.parentid = 0
+          AND one.course_id = #{courseId}
         ORDER BY one.orderby, two.orderby
+    </select>
+    <select id="selectOrderByLevel" resultType="java.lang.Integer">
+        SELECT MAX(orderby)
+        FROM teachplan
+        WHERE course_id = #{courseId}
+          AND parentid = #{parentId}
     </select>
 
 </mapper>
