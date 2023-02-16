@@ -12,6 +12,7 @@ import com.cyn.onlinelearning.content.mapper.CourseMarketMapper;
 import com.cyn.onlinelearning.content.service.CourseBaseInfoService;
 import com.cyn.onlinelearning.model.dto.AddCourseDto;
 import com.cyn.onlinelearning.model.dto.CourseBaseInfoDto;
+import com.cyn.onlinelearning.model.dto.EditCourseDto;
 import com.cyn.onlinelearning.model.dto.QueryCourseParamsDto;
 import com.cyn.onlinelearning.model.po.CourseBase;
 import com.cyn.onlinelearning.model.po.CourseCategory;
@@ -30,6 +31,7 @@ import java.time.LocalDateTime;
  * @description:
  * @date 2023/2/13 19:03
  */
+@Transactional
 @Service
 @Slf4j
 public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
@@ -66,7 +68,7 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
      * @param dto       请求参数
      * @return
      */
-    @Transactional
+
     @Override
     public CourseBaseInfoDto createCourseBase(Long companyId, AddCourseDto dto) {
         // 参数合法性校验
@@ -126,7 +128,12 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         return getCourseBaseInfo(courseBase.getId());
     }
 
-    //根据课程id查询课程基本信息，包括基本信息和营销信息
+    /**
+     * 根据课程id查询课程基本信息，包括基本信息和营销信息
+     *
+     * @param courseId 课程id
+     * @return
+     */
     public CourseBaseInfoDto getCourseBaseInfo(long courseId) {
 
         CourseBase courseBase = courseBaseMapper.selectById(courseId);
@@ -149,5 +156,41 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
 
         return courseBaseInfoDto;
 
+    }
+
+    /**
+     * 修改课程信息
+     *
+     * @param companyId 机构id
+     * @param dto       修改后表单参数
+     * @return
+     */
+    @Override
+    public CourseBaseInfoDto updateCourseBase(Long companyId, EditCourseDto dto) {
+        // 校验
+        if ("201001".equals(dto.getCharge()) &&
+                (dto.getPrice() == null || dto.getPrice().floatValue() <= 0)) {
+            OnlineLearningException.cast("收费价格异常");
+        }
+        Long courseId = dto.getId();
+        CourseBase course = courseBaseMapper.selectById(courseId);
+        if (course == null) {
+            OnlineLearningException.cast("课程不存在");
+        }
+        //
+        if (!course.getCompanyId().equals(companyId)) {
+            OnlineLearningException.cast("无法修改其他机构课程的信息");
+        }
+        // 封装课程信息 记得修改时间
+        BeanUtils.copyProperties(dto, course);
+        course.setChangeDate(LocalDateTime.now());
+        // 更新课程信息
+        courseBaseMapper.updateById(course);
+        // 封装营销信息
+        CourseMarket courseMarket = new CourseMarket();
+        BeanUtils.copyProperties(dto,courseMarket);
+        // 更新营销信息 TODO 并不认为这边不存在营销信息，所以直接更新
+        courseMarketMapper.updateById(courseMarket);
+        return getCourseBaseInfo(courseId);
     }
 }

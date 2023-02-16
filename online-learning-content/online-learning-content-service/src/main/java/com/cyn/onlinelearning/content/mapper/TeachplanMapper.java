@@ -1,7 +1,11 @@
 package com.cyn.onlinelearning.content.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cyn.onlinelearning.model.dto.TeachplanDto;
 import com.cyn.onlinelearning.model.po.Teachplan;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,5 +15,5 @@ import com.cyn.onlinelearning.model.po.Teachplan;
  * @author itcast
  */
 public interface TeachplanMapper extends BaseMapper<Teachplan> {
-
+    List<TeachplanDto> getTreeNodes(@Value("courseId") Long courseId);
 }

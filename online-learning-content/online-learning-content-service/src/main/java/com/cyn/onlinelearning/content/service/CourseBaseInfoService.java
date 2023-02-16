@@ -4,6 +4,7 @@ import com.cyn.onlinelearning.base.model.PageParams;
 import com.cyn.onlinelearning.base.model.PageResult;
 import com.cyn.onlinelearning.model.dto.AddCourseDto;
 import com.cyn.onlinelearning.model.dto.CourseBaseInfoDto;
+import com.cyn.onlinelearning.model.dto.EditCourseDto;
 import com.cyn.onlinelearning.model.dto.QueryCourseParamsDto;
 import com.cyn.onlinelearning.model.po.CourseBase;
 
@@ -29,4 +30,19 @@ public interface CourseBaseInfoService {
      * @return
      */
     CourseBaseInfoDto createCourseBase(Long companyId, AddCourseDto dto);
+
+    /**
+     * 根据课程id查询课程基本信息，包括基本信息和营销信息
+     * @param courseId 课程id
+     * @return
+     */
+    CourseBaseInfoDto getCourseBaseInfo(long courseId);
+
+    /**
+     * 修改课程信息
+     * @param companyId 机构id
+     * @param editCourseDto 修改后表单参数
+     * @return
+     */
+    CourseBaseInfoDto updateCourseBase(Long companyId, EditCourseDto editCourseDto);
 }

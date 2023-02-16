@@ -5,6 +5,7 @@ import com.cyn.onlinelearning.base.model.PageResult;
 import com.cyn.onlinelearning.content.service.CourseBaseInfoService;
 import com.cyn.onlinelearning.model.dto.AddCourseDto;
 import com.cyn.onlinelearning.model.dto.CourseBaseInfoDto;
+import com.cyn.onlinelearning.model.dto.EditCourseDto;
 import com.cyn.onlinelearning.model.dto.QueryCourseParamsDto;
 import com.cyn.onlinelearning.model.po.CourseBase;
 import io.swagger.annotations.Api;
@@ -27,7 +28,7 @@ public class CourseBaseInfoController {
 
     @ApiOperation("课程查询接口")
     @PostMapping("/course/list")
-    public PageResult<CourseBase> list(PageParams params, @RequestBody  QueryCourseParamsDto queryCourseParamsDto) {
+    public PageResult<CourseBase> list(PageParams params, @RequestBody QueryCourseParamsDto queryCourseParamsDto) {
         return courseBaseInfoService.queryCourseBaseList(params, queryCourseParamsDto);
     }
 
@@ -37,10 +38,19 @@ public class CourseBaseInfoController {
         Long companyId = 11L;
         return courseBaseInfoService.createCourseBase(companyId, dto);
     }
+
     @ApiOperation("根据课程id查询课程基础信息")
     @GetMapping("/course/{courseId}")
-    public CourseBaseInfoDto getCourseBaseById(@PathVariable Long courseId){
-        return null;
+    public CourseBaseInfoDto getCourseBaseById(@PathVariable Long courseId) {
+        return courseBaseInfoService.getCourseBaseInfo(courseId);
+    }
+
+    @ApiOperation("修改课程基础信息")
+    @PutMapping("/course")
+    public CourseBaseInfoDto modifyCourseBase(@RequestBody @Validated EditCourseDto editCourseDto) {
+        //机构id，由于认证系统没有上线暂时硬编码
+        Long companyId = 1232141425L;
+        return courseBaseInfoService.updateCourseBase(companyId, editCourseDto);
     }
 
 }
