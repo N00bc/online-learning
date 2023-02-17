@@ -8,8 +8,6 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../online-learning-parent</relativePath>
     </parent>
-
-
     <artifactId>online-learning-base</artifactId>
 
     <dependencies>

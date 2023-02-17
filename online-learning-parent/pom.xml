@@ -6,6 +6,12 @@
     <groupId>com.cyn</groupId>
     <artifactId>online-learning-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <modules>
+        <module>../online-learning-gateway</module>
+        <module>../online-learning-content</module>
+        <module>../online-learning-system</module>
+        <module>../online-learning-base</module>
+    </modules>
     <packaging>pom</packaging>
 
     <properties>
