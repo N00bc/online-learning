@@ -17,7 +17,7 @@ import java.util.List;
  * @date 2023/2/16 14:23
  */
 @RestController
-@Api(value = "课程计划管理相关接口",tags = "课程计划管理相关接口")
+@Api(value = "课程计划管理相关接口", tags = "课程计划管理相关接口")
 @Slf4j
 public class TeachPlanController {
     @Autowired
@@ -25,13 +25,25 @@ public class TeachPlanController {
 
     @ApiOperation("查询课程计划树形结构")
     @GetMapping("/teachplan/{courseId}/tree-nodes")
-    public List<TeachplanDto> getTreeNodes(@PathVariable Long courseId){
+    public List<TeachplanDto> getTreeNodes(@PathVariable Long courseId) {
         return teachPlanService.findTeachPlanTree(courseId);
     }
 
     @ApiOperation("课程计划创建或修改")
     @PostMapping("/teachplan")
-    public void saveTeachplan( @RequestBody SaveTeachplanDto teachplan){
+    public void saveTeachplan(@RequestBody SaveTeachplanDto teachplan) {
         teachPlanService.saveTeachPlan(teachplan);
+    }
+
+    @ApiOperation("删除课程计划")
+    @DeleteMapping("/teachplan/{teachplanId}")
+    public void removeTeachPlan(@PathVariable Long teachplanId) {
+        teachPlanService.removeTeachPlan(teachplanId);
+    }
+
+    @ApiOperation(value = "移动课程计划")
+    @PostMapping("teachplan/{moveType}/{teachplanId}")
+    public void moveTeachPlan(@PathVariable String moveType, @PathVariable Long teachplanId) {
+        teachPlanService.moveTeachPlan(moveType, teachplanId);
     }
 }

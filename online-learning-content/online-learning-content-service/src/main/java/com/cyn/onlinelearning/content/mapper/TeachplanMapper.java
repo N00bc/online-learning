@@ -24,4 +24,25 @@ public interface TeachplanMapper extends BaseMapper<Teachplan> {
      * @return
      */
     Integer selectOrderByLevel(@Param("courseId") Long courseId, @Param("parentId") Long parentId);
+
+
+    /**
+     * 查询子节点个数
+     * @param parentId
+     * @return
+     */
+    Integer selectChildCount(@Param("parentId") Long parentId);
+
+    /**
+     * 根据id删除课程计划
+     * @param teachPlanId
+     */
+    void deleteById(@Param("id") Long teachPlanId);
+
+    /**
+     * 查找同一父章节的教学计划
+     * @param teachplanId
+     * @return
+     */
+    List<Teachplan> selectSameLevelList(@Param("id") Long teachplanId);
 }

@@ -94,5 +94,26 @@
         WHERE course_id = #{courseId}
           AND parentid = #{parentId}
     </select>
+    <select id="selectChildCount" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM teachplan
+        WHERE parentid = #{parentId}
+          AND status = 1
+    </select>
+    <select id="selectSameLevelList" resultType="com.cyn.onlinelearning.model.po.Teachplan">
+        SELECT *
+        FROM teachplan
+        WHERE parentid = (
+            SELECT parentid
+            FROM teachplan
+            WHERE id = #{id}
+        )
+    </select>
+
+    <update id="deleteById">
+        UPDATE teachplan
+        SET status = 0
+        WHERE id = #{id}
+    </update>
 
 </mapper>
