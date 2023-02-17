@@ -178,9 +178,9 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
             OnlineLearningException.cast("课程不存在");
         }
         //
-        if (!course.getCompanyId().equals(companyId)) {
-            OnlineLearningException.cast("无法修改其他机构课程的信息");
-        }
+//        if (!course.getCompanyId().equals(companyId)) {
+//            OnlineLearningException.cast("无法修改其他机构课程的信息");
+//        }
         // 封装课程信息 记得修改时间
         BeanUtils.copyProperties(dto, course);
         course.setChangeDate(LocalDateTime.now());

@@ -152,10 +152,12 @@ public class TeachPlanServiceImpl implements TeachPlanService {
         Integer orderBy = one.getOrderby();
         one.setOrderby(two.getOrderby());
         two.setOrderby(orderBy);
+        teachplanMapper.updateById(one);
+        teachplanMapper.updateById(two);
     }
 
     public int getOrderByLevel(Long courseId, Long parentId) {
         Integer value = teachplanMapper.selectOrderByLevel(courseId, parentId);
-        return value;
+        return value == null ? 0 : value;
     }
 }
