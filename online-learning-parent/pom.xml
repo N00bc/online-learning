@@ -11,6 +11,7 @@
         <module>../online-learning-content</module>
         <module>../online-learning-system</module>
         <module>../online-learning-base</module>
+        <module>../online-learning-media</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: media-service
+  cloud:
+    nacos:
+      server-addr: myvm:8848
+      discovery:
+        namespace: 8c24948e-ab38-40ee-a31b-4bf33447ac08
+        group: online-learning
+      config:
+        namespace: 8c24948e-ab38-40ee-a31b-4bf33447ac08
+        group: online-learning
+        file-extension: yaml
+        shared-configs:
+        - data-id: logging-${spring.profiles.active}.yaml
+          group: online-learning-common
+
+  #profiles默认为dev
+  profiles:
+    active: dev
+
+
+

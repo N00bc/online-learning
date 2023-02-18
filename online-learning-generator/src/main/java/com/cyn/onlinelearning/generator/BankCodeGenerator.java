@@ -62,7 +62,7 @@ public class BankCodeGenerator {
 
 		// 包配置
 		PackageConfig pc = new PackageConfig();
-		pc.setParent("com.cyn.online-learning.rocketmq");
+		pc.setParent("com.cyn.onlinelearning.media.rocketmq");
 
 		pc.setServiceImpl("service.impl");
 		pc.setXml("mapper");
