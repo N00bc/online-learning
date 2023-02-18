@@ -4,6 +4,8 @@ package com.cyn.onlinelearning.media.service;
 import com.cyn.onlinelearning.base.model.PageParams;
 import com.cyn.onlinelearning.base.model.PageResult;
 import com.cyn.onlinelearning.media.model.dto.QueryMediaParamsDto;
+import com.cyn.onlinelearning.media.model.dto.UploadFileParamsDto;
+import com.cyn.onlinelearning.media.model.dto.UploadFileResultDto;
 import com.cyn.onlinelearning.media.model.po.MediaFiles;
 
 /**
@@ -22,7 +24,18 @@ public interface MediaFileService {
   * @author Mr.M
   * @date 2022/9/10 8:57
  */
- public PageResult<MediaFiles> queryMediaFiels(Long companyId, PageParams pageParams, QueryMediaParamsDto queryMediaParamsDto);
+ PageResult<MediaFiles> queryMediaFiels(Long companyId, PageParams pageParams, QueryMediaParamsDto queryMediaParamsDto);
+
+ /**
+  * 上传文件接口
+  * @param companyId 机构id
+  * @param uploadFileParamsDto 参数
+  * @param fileData 文件本身(byte流)
+  * @param folder 存放路径
+  * @param objectName 文件名
+  * @return
+  */
+ UploadFileResultDto uploadFile(Long companyId, UploadFileParamsDto uploadFileParamsDto,byte[] fileData,String folder,String objectName);
 
 
 }
