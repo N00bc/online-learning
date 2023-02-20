@@ -59,10 +59,10 @@ public class BigFileController {
 
         UploadFileParamsDto uploadFileParamsDto = new UploadFileParamsDto();
         uploadFileParamsDto.setFilename(fileName);
-        uploadFileParamsDto.setFileType("001002");//视频
+        //视频
+        uploadFileParamsDto.setFileType("001002");
         uploadFileParamsDto.setTags("课程视频");
-//        return mediaFileService.mergeChunks(companyId, fileMd5, chunkTotal, uploadFileParamsDto);
-        return null;
+        return mediaFileService.mergeChunks(companyId, fileMd5, chunkTotal, uploadFileParamsDto);
     }
 
 
