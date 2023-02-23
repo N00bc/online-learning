@@ -73,4 +73,11 @@ public interface MediaFileService {
      * @return
      */
     RestResponse mergeChunks(Long companyId, String fileMd5, int chunkTotal, UploadFileParamsDto uploadFileParamsDto);
+
+    /**
+     * 根据媒体id查询媒体文件
+     * @param mediaId
+     * @return
+     */
+    MediaFiles getFileById(String mediaId);
 }

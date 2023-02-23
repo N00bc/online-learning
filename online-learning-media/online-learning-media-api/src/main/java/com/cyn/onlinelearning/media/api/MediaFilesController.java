@@ -4,11 +4,12 @@ package com.cyn.onlinelearning.media.api;
 import com.cyn.onlinelearning.base.exception.OnlineLearningException;
 import com.cyn.onlinelearning.base.model.PageParams;
 import com.cyn.onlinelearning.base.model.PageResult;
+import com.cyn.onlinelearning.base.model.RestResponse;
 import com.cyn.onlinelearning.media.model.dto.QueryMediaParamsDto;
 import com.cyn.onlinelearning.media.model.dto.UploadFileParamsDto;
 import com.cyn.onlinelearning.media.model.dto.UploadFileResultDto;
-import com.cyn.onlinelearning.media.service.MediaFileService;
 import com.cyn.onlinelearning.media.model.po.MediaFiles;
+import com.cyn.onlinelearning.media.service.MediaFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,15 @@ public class MediaFilesController {
             OnlineLearningException.cast("上传文件异常");
         }
         return uploadFileResultDto;
+    }
+    @ApiOperation("预览文件")
+    @GetMapping("/preview/{mediaId}")
+    public RestResponse<String> getPlayUrlByMediaId(@PathVariable String mediaId){
+
+        //调用service查询文件的url
+
+        MediaFiles mediaFiles = mediaFileService.getFileById(mediaId);
+        return RestResponse.success(mediaFiles.getUrl());
     }
 
 }

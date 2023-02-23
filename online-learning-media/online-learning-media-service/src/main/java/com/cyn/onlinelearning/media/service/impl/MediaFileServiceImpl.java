@@ -271,6 +271,23 @@ public class MediaFileServiceImpl implements MediaFileService {
         }
     }
 
+    /**
+     * 根据媒体id查询媒体文件
+     *
+     * @param mediaId
+     * @return
+     */
+    @Override
+    public MediaFiles getFileById(String mediaId) {
+        MediaFiles mediaFile = mediaFilesMapper.selectById(mediaId);
+        if (mediaFile == null) {
+            OnlineLearningException.cast("文件不存在");
+        }
+        if (StringUtils.isEmpty(mediaFile.getUrl())) {
+            OnlineLearningException.cast("文件还未处理请稍后预览");
+        }
+        return mediaFile;
+    }
 
     // ========================= private methods =========================
 
@@ -360,7 +377,17 @@ public class MediaFileServiceImpl implements MediaFileService {
             mediaFiles.setCompanyId(companyId);
             mediaFiles.setBucket(bucketName);
             mediaFiles.setFilePath(objectName);
-            mediaFiles.setUrl("/" + bucketName + "/" + objectName);
+            // 获取扩展名
+            String extension = null;
+            String filename = uploadFileParamsDto.getFilename();
+            if (StringUtils.isNotBlank(filename) && filename.contains(".")) {
+                extension = filename.substring(filename.indexOf("."));
+            }
+            String mimeType = getMimeTypeByExtension(extension);
+            // 图片 mp4视频可以设置URL
+            if(mimeType.contains("image") || mimeType.contains("mp4")){
+                mediaFiles.setUrl("/" + bucketName + "/" + objectName);
+            }
             mediaFiles.setCreateDate(LocalDateTime.now());
             mediaFiles.setStatus("1");
             mediaFiles.setAuditStatus("002003");
@@ -379,16 +406,7 @@ public class MediaFileServiceImpl implements MediaFileService {
      */
     private void addMediaFile2MinIO(String bucketName, byte[] fileData, String objectName) {
         try {
-            // 设置默认的contentType
-            String contentType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
-            // 取objectName的扩展名
-            if (objectName.contains(".")) {
-                //
-                ContentInfo extension = ContentInfoUtil.findExtensionMatch(objectName.substring(objectName.lastIndexOf(".")));
-                if (extension != null) {
-                    contentType = extension.getMimeType();
-                }
-            }
+            String contentType = getMimeTypeByExtension(objectName);
             // 将文件的byte数组转化为输入流
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(fileData);
             PutObjectArgs putObjectArgs = PutObjectArgs.builder()
@@ -404,6 +422,20 @@ public class MediaFileServiceImpl implements MediaFileService {
             log.error("上传到文件系统出错:{}", e.getMessage());
             OnlineLearningException.cast("上传文件出错");
         }
+    }
+
+    private String getMimeTypeByExtension(String objectName) {
+        // 设置默认的contentType
+        String contentType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
+        // 取objectName的扩展名
+        if (objectName.contains(".")) {
+            //
+            ContentInfo extension = ContentInfoUtil.findExtensionMatch(objectName.substring(objectName.lastIndexOf(".")));
+            if (extension != null) {
+                contentType = extension.getMimeType();
+            }
+        }
+        return contentType;
     }
 
     /**
