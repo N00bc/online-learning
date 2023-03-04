@@ -12,6 +12,7 @@ import com.cyn.onlinelearning.model.po.CourseBase;
 import com.cyn.onlinelearning.model.po.Teachplan;
 import com.cyn.onlinelearning.model.po.TeachplanMedia;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -183,6 +184,20 @@ public class TeachPlanServiceImpl implements TeachPlanService {
         teachplanMedia.setCourseId(teachplan.getCourseId());
         teachplanMediaMapper.insert(teachplanMedia);
         return teachplanMedia;
+    }
+
+    /**
+     * 解除媒资信息和教学计划的绑定关系
+     *
+     * @param teachplanId
+     * @param mediaId
+     */
+    @Override
+    public void mediaUnAssociation(Long teachplanId, String mediaId) {
+        if (teachplanId == null || StringUtils.isBlank(mediaId)) {
+            OnlineLearningException.cast("请传入正确的课程计划Id和媒资Id");
+        }
+        teachplanMediaMapper.deleteByTeachPlanIdAndMediaId(teachplanId,mediaId);
     }
 
     public void swapOrderBy(Teachplan one, Teachplan two) {

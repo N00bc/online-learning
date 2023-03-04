@@ -18,4 +18,11 @@ public interface TeachplanMediaMapper extends BaseMapper<TeachplanMedia> {
      * @param teachplanId
      */
     void deleteByTeachPlanId(@Param("teachplanId") Long teachplanId);
+
+    /**
+     * 根据 teachplanId 和 mediaId 删除数据
+     * @param teachplanId
+     * @param mediaId
+     */
+    void deleteByTeachPlanIdAndMediaId(@Param("teachplanId") Long teachplanId, @Param("mediaId") String mediaId);
 }

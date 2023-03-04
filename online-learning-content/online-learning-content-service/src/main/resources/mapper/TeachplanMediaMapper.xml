@@ -23,5 +23,9 @@
         FROM teachplan_media
         WHERE teachplan_id = #{teachplanId}
     </delete>
+    <delete id="deleteByTeachPlanIdAndMediaId">
+        DELETE FROM teachplan_media
+        WHERE teachplan_id = #{teachplanId} AND media_id = #{mediaId}
+    </delete>
 
 </mapper>
