@@ -1,6 +1,7 @@
 package com.cyn.onlinelearning.content.api;
 
 import com.cyn.onlinelearning.content.service.TeachPlanService;
+import com.cyn.onlinelearning.model.dto.BindTeachplanMediaDto;
 import com.cyn.onlinelearning.model.dto.SaveTeachplanDto;
 import com.cyn.onlinelearning.model.dto.TeachplanDto;
 import io.swagger.annotations.Api;
@@ -45,5 +46,11 @@ public class TeachPlanController {
     @PostMapping("teachplan/{moveType}/{teachplanId}")
     public void moveTeachPlan(@PathVariable String moveType, @PathVariable Long teachplanId) {
         teachPlanService.moveTeachPlan(moveType, teachplanId);
+    }
+
+    @ApiOperation("课程计划媒资信息绑定")
+    @PostMapping("/teachplan/association/media")
+    public void associationMedia(@RequestBody BindTeachplanMediaDto dto){
+        teachPlanService.associationMedia(dto);
     }
 }

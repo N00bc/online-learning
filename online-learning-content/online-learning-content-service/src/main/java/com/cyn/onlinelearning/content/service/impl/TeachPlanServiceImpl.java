@@ -3,11 +3,14 @@ package com.cyn.onlinelearning.content.service.impl;
 import com.cyn.onlinelearning.base.exception.OnlineLearningException;
 import com.cyn.onlinelearning.content.mapper.CourseBaseMapper;
 import com.cyn.onlinelearning.content.mapper.TeachplanMapper;
+import com.cyn.onlinelearning.content.mapper.TeachplanMediaMapper;
 import com.cyn.onlinelearning.content.service.TeachPlanService;
+import com.cyn.onlinelearning.model.dto.BindTeachplanMediaDto;
 import com.cyn.onlinelearning.model.dto.SaveTeachplanDto;
 import com.cyn.onlinelearning.model.dto.TeachplanDto;
 import com.cyn.onlinelearning.model.po.CourseBase;
 import com.cyn.onlinelearning.model.po.Teachplan;
+import com.cyn.onlinelearning.model.po.TeachplanMedia;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,8 @@ public class TeachPlanServiceImpl implements TeachPlanService {
     private TeachplanMapper teachplanMapper;
     @Autowired
     private CourseBaseMapper courseBaseMapper;
+    @Autowired
+    private TeachplanMediaMapper teachplanMediaMapper;
 
     /**
      * 课程计划树型结构查询
@@ -146,6 +151,38 @@ public class TeachPlanServiceImpl implements TeachPlanService {
             }
         }
         swapOrderBy(one, two);
+    }
+
+    /**
+     * 绑定教学计划与媒资 1对多的关系， 多条媒资可以定义一条教学计划
+     *
+     * @param dto
+     * @return
+     */
+    @Override
+    public TeachplanMedia associationMedia(BindTeachplanMediaDto dto) {
+        Long teachplanId = dto.getTeachplanId();
+        // 约束校验
+        // 1.教学计划不存在 无法绑定
+        Teachplan teachplan = teachplanMapper.selectById(teachplanId);
+        if (teachplan == null) {
+            OnlineLearningException.cast("教学计划不存在,无法绑定");
+        }
+        // 2.只有二级目录才能绑定视频
+        Integer grade = teachplan.getGrade();
+        if (2 != grade) {
+            OnlineLearningException.cast("只有二级目录才能绑定视频");
+        }
+        // 删除原来的绑定关系
+        teachplanMediaMapper.deleteByTeachPlanId(teachplanId);
+        // 添加新记录
+        TeachplanMedia teachplanMedia = new TeachplanMedia();
+        teachplanMedia.setTeachplanId(teachplanId);
+        teachplanMedia.setMediaFilename(dto.getFileName());
+        teachplanMedia.setMediaId(dto.getMediaId());
+        teachplanMedia.setCourseId(teachplan.getCourseId());
+        teachplanMediaMapper.insert(teachplanMedia);
+        return teachplanMedia;
     }
 
     public void swapOrderBy(Teachplan one, Teachplan two) {

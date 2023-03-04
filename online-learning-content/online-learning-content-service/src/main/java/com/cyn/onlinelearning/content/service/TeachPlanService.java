@@ -1,7 +1,9 @@
 package com.cyn.onlinelearning.content.service;
 
+import com.cyn.onlinelearning.model.dto.BindTeachplanMediaDto;
 import com.cyn.onlinelearning.model.dto.SaveTeachplanDto;
 import com.cyn.onlinelearning.model.dto.TeachplanDto;
+import com.cyn.onlinelearning.model.po.TeachplanMedia;
 
 import java.util.List;
 
@@ -37,4 +39,10 @@ public interface TeachPlanService {
      * @param teachplanId 需要移动的计划
      */
     void moveTeachPlan(String moveType, Long teachplanId);
+
+    /**
+     * 绑定教学计划与媒资 1对多的关系， 多条媒资可以定义一条教学计划
+     * @param dto
+     */
+    TeachplanMedia associationMedia(BindTeachplanMediaDto dto);
 }

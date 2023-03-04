@@ -7,10 +7,12 @@ import com.cyn.onlinelearning.base.model.PageParams;
 import com.cyn.onlinelearning.base.model.PageResult;
 import com.cyn.onlinelearning.base.model.RestResponse;
 import com.cyn.onlinelearning.media.mapper.MediaFilesMapper;
+import com.cyn.onlinelearning.media.mapper.MediaProcessMapper;
 import com.cyn.onlinelearning.media.model.dto.QueryMediaParamsDto;
 import com.cyn.onlinelearning.media.model.dto.UploadFileParamsDto;
 import com.cyn.onlinelearning.media.model.dto.UploadFileResultDto;
 import com.cyn.onlinelearning.media.model.po.MediaFiles;
+import com.cyn.onlinelearning.media.model.po.MediaProcess;
 import com.cyn.onlinelearning.media.service.MediaFileService;
 import com.j256.simplemagic.ContentInfo;
 import com.j256.simplemagic.ContentInfoUtil;
@@ -356,6 +358,9 @@ public class MediaFileServiceImpl implements MediaFileService {
                 fileMd5 + extension;
     }
 
+    @Autowired
+    private MediaProcessMapper mediaProcessMapper;
+
     /**
      * 将文件信息插入到 online-learning_media.mediaFiles表中
      *
@@ -366,7 +371,7 @@ public class MediaFileServiceImpl implements MediaFileService {
      * @return
      */
     @NotNull
-    private MediaFiles addMediaInfo2DB(Long companyId, UploadFileParamsDto uploadFileParamsDto, String objectName, String md5, String bucketName) {
+    public MediaFiles addMediaInfo2DB(Long companyId, UploadFileParamsDto uploadFileParamsDto, String objectName, String md5, String bucketName) {
         MediaFiles mediaFiles = mediaFilesMapper.selectById(md5);
         if (mediaFiles == null) {
             mediaFiles = new MediaFiles();
@@ -385,7 +390,7 @@ public class MediaFileServiceImpl implements MediaFileService {
             }
             String mimeType = getMimeTypeByExtension(extension);
             // 图片 mp4视频可以设置URL
-            if(mimeType.contains("image") || mimeType.contains("mp4")){
+            if (mimeType.contains("image") || mimeType.contains("mp4")) {
                 mediaFiles.setUrl("/" + bucketName + "/" + objectName);
             }
             mediaFiles.setCreateDate(LocalDateTime.now());
@@ -393,6 +398,15 @@ public class MediaFileServiceImpl implements MediaFileService {
             mediaFiles.setAuditStatus("002003");
             // 插入文件列表
             mediaFilesMapper.insert(mediaFiles);
+
+            // 对avi格式视频进行处理
+            if (mimeType.equals("video/x-msvideo")) {
+                MediaProcess mediaProcess = new MediaProcess();
+                BeanUtils.copyProperties(mediaFiles, mediaProcess);
+                // 设置未处理状态
+                mediaProcess.setStatus("1");
+                mediaProcessMapper.insert(mediaProcess);
+            }
         }
         return mediaFiles;
     }
