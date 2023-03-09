@@ -20,5 +20,7 @@ spring:
             group: online-learning-common
           - data-id: logging-${spring.profiles.active}.yaml
             group: online-learning-common
+          - data-id: freemarker-config-${spring.profiles.active}.yaml
+            group: online-learning-common
   profiles:
     active: dev

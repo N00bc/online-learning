@@ -25,7 +25,7 @@ public interface MediaFileService {
      * @author Mr.M
      * @date 2022/9/10 8:57
      */
-    PageResult<MediaFiles> queryMediaFiels(Long companyId, PageParams pageParams, QueryMediaParamsDto queryMediaParamsDto);
+    PageResult<MediaFiles> queryMediaFiles(Long companyId, PageParams pageParams, QueryMediaParamsDto queryMediaParamsDto);
 
     /**
      * 上传文件接口
