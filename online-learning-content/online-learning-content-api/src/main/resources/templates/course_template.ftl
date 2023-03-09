@@ -186,15 +186,114 @@
                                     </div>
                                 </div>
                             </#list>
-
+                            <#-- <div class="item">
+                                 <div class="title act"><i class="i-chevron-top"></i>第一阶段 HTTP协议基础详解<span class="time">8小时</span></div>
+                                 <div class="about">使用Java消息中间件处理异步消息成为了分布式系统中的必修课，通过本门课程可以深入浅出的学习如何在Java中使用消息中间件并且一步一步打造更优雅的最佳实践方案。</div>
+                                 <div class="drop-down" style="height: 260px;">
+                                     <ul class="list-box">
+                                         <li class="active">1.1 阅读：分级政策细节 <span>97’33”</span></li>
+                                         <li>1.2 视频：为什么分为 A 部分、B 部分、C 部分 <span>66’15”</span></li>
+                                         <li>1.3 视频：软件安装介绍 <span>86’42”</span></li>
+                                         <li>1.4 阅读：Emacs安装 <span>59’00”</span></li>
+                                         <li>1.5 作业1：Emacs安装 <span>93’29”</span></li>
+                                         <li>阶段测试</li>
+                                     </ul>
+                                 </div>
+                             </div>-->
 
 
                         </div>
                     </div>
-
+                    <!--侧边栏-->
+                    <!--#include virtual="/include/course_detail_side.html"-->
+                    <!--侧边栏-->
                 </div>
             </div>
+            <#--<div class="articleItem" style="display: none">
+                <div class="article-cont-catalog">
+                    <div class="article-left-box">
+                        <div class="content">
+                            <div class="item">
+                                <div class="title act"><i class="i-chevron-top"></i>第一阶段 HTTP协议基础详解<span class="time">8小时</span></div>
+                                <div class="about">使用Java消息中间件处理异步消息成为了分布式系统中的必修课，通过本门课程可以深入浅出的学习如何在Java中使用消息中间件并且一步一步打造更优雅的最佳实践方案。</div>
+                                <div class="drop-down" style="height: 260px;">
+                                    <ul class="list-box">
+                                        <li class="active">1.1 阅读：分级政策细节 <span>97’33”</span></li>
+                                        <li>1.2 视频：为什么分为 A 部分、B 部分、C 部分 <span>66’15”</span></li>
+                                        <li>1.3 视频：软件安装介绍 <span>86’42”</span></li>
+                                        <li>1.4 阅读：Emacs安装 <span>59’00”</span></li>
+                                        <li>1.5 作业1：Emacs安装 <span>93’29”</span></li>
+                                        <li>阶段测试</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="title"><i class="i-chevron-bot"></i>第二阶段 HTTP协议基础详解<span class="time">8小时</span></div>
+                                <div class="about">使用Java消息中间件处理异步消息成为了分布式系统中的必修课，通过本门课程可以深入浅出的学习如何在Java中使用消息中间件并且一步一步打造更优雅的最佳实践方案。</div>
+                                <div class="drop-down">
+                                    <ul class="list-box">
+                                        <li class="active">1.1 阅读：分级政策细节 <span>97’33”</span></li>
+                                        <li>1.2 视频：为什么分为 A 部分、B 部分、C 部分 <span>66’15”</span></li>
+                                        <li>1.3 视频：软件安装介绍 <span>86’42”</span></li>
+                                        <li>1.4 阅读：Emacs安装 <span>59’00”</span></li>
+                                        <li>1.5 作业1：Emacs安装 <span>93’29”</span></li>
+                                        <li>阶段测试</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="title"><i class="i-chevron-bot"></i>第三阶段 HTTP协议基础详解<span class="time">3小时</span></div>
+                                <div class="about">使用Java消息中间件处理异步消息成为了分布式系统中的必修课，通过本门课程可以深入浅出的学习如何在Java中使用消息中间件并且一步一步打造更优雅的最佳实践方案。</div>
+                                <div class="drop-down">
+                                    <ul class="list-box">
+                                        <li class="active">1.1 阅读：分级政策细节 <span>97’33”</span></li>
+                                        <li>1.2 视频：为什么分为 A 部分、B 部分、C 部分 <span>66’15”</span></li>
+                                        <li>1.3 视频：软件安装介绍 <span>86’42”</span></li>
+                                        <li>1.4 阅读：Emacs安装 <span>59’00”</span></li>
+                                        <li>1.5 作业1：Emacs安装 <span>93’29”</span></li>
+                                        <li>阶段测试</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="title"><i class="i-chevron-bot"></i>第四阶段 HTTP协议基础详解<span class="time">3小时</span></div>
+                                <div class="about">使用Java消息中间件处理异步消息成为了分布式系统中的必修课，通过本门课程可以深入浅出的学习如何在Java中使用消息中间件并且一步一步打造更优雅的最佳实践方案。</div>
+                                <div class="drop-down">
+                                    <ul class="list-box">
+                                        <li class="active">1.1 阅读：分级政策细节 <span>97’33”</span></li>
+                                        <li>1.2 视频：为什么分为 A 部分、B 部分、C 部分 <span>66’15”</span></li>
+                                        <li>1.3 视频：软件安装介绍 <span>86’42”</span></li>
+                                        <li>1.4 阅读：Emacs安装 <span>59’00”</span></li>
+                                        <li>1.5 作业1：Emacs安装 <span>93’29”</span></li>
+                                        <li>阶段测试</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="title"><i class="i-chevron-bot"></i>第五阶段 HTTP协议基础详解<span class="time">3小时</span></div>
+                                <div class="about">使用Java消息中间件处理异步消息成为了分布式系统中的必修课，通过本门课程可以深入浅出的学习如何在Java中使用消息中间件并且一步一步打造更优雅的最佳实践方案。</div>
+                                <div class="drop-down">
+                                    <ul class="list-box">
+                                        <li class="active">1.1 阅读：分级政策细节 <span>97’33”</span></li>
+                                        <li>1.2 视频：为什么分为 A 部分、B 部分、C 部分 <span>66’15”</span></li>
+                                        <li>1.3 视频：软件安装介绍 <span>86’42”</span></li>
+                                        <li>1.4 阅读：Emacs安装 <span>59’00”</span></li>
+                                        <li>1.5 作业1：Emacs安装 <span>93’29”</span></li>
+                                        <li>阶段测试</li>
+                                    </ul>
+                                </div>
 
+                            </div>
+                            <div class="item">
+                                <a href="#" class="overwrite">毕业考核</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--侧边栏&ndash;&gt;
+                    <!--#include virtual="/include/course_detail_side.html"&ndash;&gt;
+                    <!--侧边栏&ndash;&gt;
+                </div>
+            </div>-->
             <div class="artcleAsk" style="display: none">
                 <div class="article-cont-ask">
                     <div class="article-left-box">

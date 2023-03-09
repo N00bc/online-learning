@@ -22,6 +22,11 @@ public class CourseOpenController {
     private CoursePublishService coursePublishService;
 
 
+    /**
+     * 根据课程id查询课程信息
+     * @param courseId
+     * @return
+     */
     @GetMapping("/course/whole/{courseId}")
     public CoursePreviewDto getPreviewInfo(@PathVariable("courseId") Long courseId) {
         //获取课程预览信息

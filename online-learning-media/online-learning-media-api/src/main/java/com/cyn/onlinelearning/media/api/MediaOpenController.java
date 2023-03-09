@@ -13,24 +13,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(value = "媒资文件管理接口",tags = "媒资文件管理接口")
- @RestController
- @RequestMapping("/open")
+@Api(value = "媒资文件管理接口", tags = "媒资文件管理接口")
+@RestController
+@RequestMapping("/open")
 public class MediaOpenController {
 
-  @Autowired
-  MediaFileService mediaFileService;
+    @Autowired
+    MediaFileService mediaFileService;
 
     @ApiOperation("预览文件")
     @GetMapping("/preview/{mediaId}")
-    public RestResponse<String> getPlayUrlByMediaId(@PathVariable String mediaId){
+    public RestResponse<String> getPlayUrlByMediaId(@PathVariable String mediaId) {
 
         MediaFiles mediaFiles = mediaFileService.getFileById(mediaId);
-        if(mediaFiles == null || StringUtils.isEmpty(mediaFiles.getUrl())){
+        if (mediaFiles == null || StringUtils.isEmpty(mediaFiles.getUrl())) {
             OnlineLearningException.cast("视频还没有转码处理");
         }
         return RestResponse.success(mediaFiles.getUrl());
-
     }
 
 
